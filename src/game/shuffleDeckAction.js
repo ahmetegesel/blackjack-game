@@ -1,5 +1,5 @@
 import { Action } from "../action";
-import { shuffle } from "../helpers/card";
+import { shuffle } from "../helpers/deck";
 
 export class ShuffleDeckAction extends Action {
   dispatch(action, payload, state, context) {

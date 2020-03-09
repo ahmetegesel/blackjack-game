@@ -1,5 +1,3 @@
-import { createArrayFromRange } from "../../lib/fn";
-
 export const suits = Object.freeze(['club', 'diamond', 'heart', 'spade']);
 
 const A = 'A';
@@ -20,36 +18,3 @@ export const isBlackJack = (cards) => {
 
 export const card = (suit, rank, rankIndex) => ({ suit, rank, value: rank === A ? 11 : Math.min(10, rankIndex + 1) });
 
-const cardOfSuit = suit => (rank, rankIndex) => card(suit, rank, rankIndex);
-
-export const deck =
-  (suits, ranks) => {
-    const initialValue = [];
-    return suits.reduce(
-      (cards, suit) => {
-        const completeSuit = ranks.map(cardOfSuit(suit))
-        return cards.concat(completeSuit)
-      },
-      initialValue
-    )
-  };
-
-export const shuffle = array => {
-  const newArray = [...array];
-
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-
-  return newArray;
-}
-
-export const generateIndices = (deck, deckCount) => {
-  const totalCardAmount = deckCount * deck.length;
-  return createArrayFromRange(totalCardAmount);
-}
-
-const getCardIndexInDeck = (deck, index) => index % deck.length;
-
-export const drawFromDeck = (deck, indices, nextPick) => (Object.assign({}, deck[getCardIndexInDeck(deck, indices[nextPick])]));

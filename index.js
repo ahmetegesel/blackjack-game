@@ -1,10 +1,7 @@
 import {
-  deck, drawFromDeck,
-  generateIndices,
   isAce,
   isBlackJack,
   ranks,
-  shuffle,
   suits
 } from "./src/helpers/card";
 import { createArrayFromRange } from "./lib/fn";
@@ -12,6 +9,7 @@ import { isBusted, score } from "./src/helpers/player";
 import { displayPlayer } from "./src/helpers/display";
 import { Player } from "./src/player";
 import { Game } from "./src/game";
+import { deck, drawFromDeck, generateIndices, shuffle } from "./src/helpers/deck";
 
 
 const _deck = deck(suits, ranks);
@@ -36,23 +34,23 @@ const newBet = (game) => {
   const deckIndices = game.get('deckIndices');
   const initialCardAmount = 2;
 
-  const initialCards = createArrayFromRange(initialCardAmount).map(() => drawFromDeck(deck, deckIndices, pick)) ;
+  const initialCards = createArrayFromRange(initialCardAmount).map((i) => drawFromDeck(deck, deckIndices, pick + i));
   const aceCount = initialCards.reduce((sum, card) => isAce(card) ? sum + 1 : sum, 0);
   game.dispatch('incrementPick', initialCardAmount);
 
   return { cards: initialCards, aceCount };
 };
 
-const rebet = (game) => {
-  return createArrayFromRange(game.get('playerCount')).map(i=> newBet(game));
-}
+const reBet = (game) => {
+  return createArrayFromRange(game.get('playerCount')).map(() => newBet(game));
+};
 
 const createPlayers = (game) => {
   const playerCount = game.get('playerCount');
 
   return createArrayFromRange(playerCount)
     .map(i => {
-      const {cards, aceCount } = newBet(game);
+      const { cards, aceCount } = newBet(game);
 
       return { [`player${i + 1}`]: new Player({ cards, aceCount }) };
     })
@@ -110,7 +108,7 @@ const stand = (game, dealer, player) => {
     return 'over';
   }
 
-  while (dealer.get('score') < 16) {
+  while (dealer.get('score') < 17) {
     dealer.dispatch('hit', {
       deck: game.get('deck'),
       deckIndices: game.get('deckIndices'),
@@ -158,7 +156,7 @@ const main = async (game) => {
   while (true) {
     if (status === 'over') {
       game.dispatch('shuffle');
-      const hands = rebet(game);
+      const hands = reBet(game);
       dealer.dispatch('rebet', hands[0]);
       player.dispatch('rebet', hands[1]);
       console.log('New game started!');
@@ -175,9 +173,9 @@ const main = async (game) => {
 
     command = await ask('Hit/Stand (h/s)? ');
 
-    if(command === 'h') {
+    if (command === 'h') {
       status = hit(game, dealer, player);
-    } else if(command === 's'){
+    } else if (command === 's') {
       status = stand(game, dealer, player);
     }
   }

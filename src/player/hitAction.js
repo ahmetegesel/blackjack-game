@@ -1,5 +1,6 @@
 import { Action } from "../action";
-import { drawFromDeck, isAce } from "../helpers/card";
+import { isAce } from "../helpers/card";
+import { drawFromDeck } from "../helpers/deck";
 
 export class HitAction extends Action {
   dispatch(action, payload, state) {
