@@ -1,5 +1,13 @@
 # StateManagement based BlackJack 21 Game
 
+## How to Run
+Simple run `npm i` then `npm start`.
+
+## How to Play
+When the game starts, it will show you Dealr's and Player's (Your) hand, 
+then you will decide either Hit or Stand. To hit, press 'h' , to stand press 's',
+then press 'Enter'. 
+
 Instead of a complete OOP or a complete FP approaches, I used an hybrid version of them.
 Players and Game are constructed as Objects and they are basically instances of `StoreNode`
 class.
