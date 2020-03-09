@@ -6,7 +6,7 @@ import {
 } from "./src/helpers/card";
 import { createArrayFromRange } from "./lib/fn";
 import { isBusted, score } from "./src/helpers/player";
-import { displayPlayer } from "./src/helpers/display";
+import { displayDealer, displayPlayer } from "./src/helpers/display";
 import { Player } from "./src/player";
 import { Game } from "./src/game";
 import { deck, drawFromDeck, generateIndices, shuffle } from "./src/helpers/deck";
@@ -118,7 +118,7 @@ const stand = (game, dealer, player) => {
   }
 
   console.log('Dealer drew his cards!');
-  displayHands(dealer, player);
+  displayAllHands(dealer, player);
 
   const isDealerBusted = isBusted(dealer.get('score'));
   if (isDealerBusted) {
@@ -140,10 +140,13 @@ const stand = (game, dealer, player) => {
 };
 
 const displayHands = (dealer, player) => {
-  console.log('Dealer');
-  displayPlayer(dealer.get('cards'), dealer.get('score'));
-  console.log('Player');
-  displayPlayer(player.get('cards'), player.get('score'));
+  displayDealer('Dealer', dealer.get('cards'), dealer.get('score'));
+  displayPlayer('Player', player.get('cards'), player.get('score'));
+};
+
+const displayAllHands = (dealer, player) => {
+  displayPlayer('Dealer', dealer.get('cards'), dealer.get('score'));
+  displayPlayer('Player', player.get('cards'), player.get('score'));
 };
 
 const main = async (game) => {
