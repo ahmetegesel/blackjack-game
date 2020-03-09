@@ -1,0 +1,34 @@
+{
+  "name": "blackjack-game",
+  "version": "1.0.0",
+  "description": "Simple Blackjack Game in Javascript",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@types/node": "^13.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmetegesel/blackjack-game.git"
+  },
+  "keywords": [
+    "blackjack",
+    "simple",
+    "javascript",
+    "nodejs",
+    "21"
+  ],
+  "author": "Ahmet Egesel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahmetegesel/blackjack-game/issues"
+  },
+  "homepage": "https://github.com/ahmetegesel/blackjack-game#readme",
+  "dependencies": {}
+}
