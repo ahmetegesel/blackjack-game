@@ -144,6 +144,8 @@ const displayHands = (dealer, player) => {
   displayPlayer('Player', player.get('cards'), player.get('score'));
 };
 
+// Since displayHands calls displayDealer and it doesn't show Dealer's whole hand
+// This should be used when we want to show his hand too.
 const displayAllHands = (dealer, player) => {
   displayPlayer('Dealer', dealer.get('cards'), dealer.get('score'));
   displayPlayer('Player', player.get('cards'), player.get('score'));
