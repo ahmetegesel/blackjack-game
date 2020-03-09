@@ -12,6 +12,8 @@ export const displayDealer = (playerName, cards, score, displayer = console.log)
   const [firstCard, ...restOfTheCards] = deepClone(cards);
   let _score = score;
 
+  // If cards length is two, then dealer still didn't start drawing cards,
+  // which means player didn't stand yet
   if(cards.length === 2) {
     firstCard.rank = '*'
     firstCard.value = '*'
