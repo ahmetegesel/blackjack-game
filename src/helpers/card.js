@@ -1,10 +1,7 @@
-// Create an array of card suit names
-import { pipe, createArrayFromRange, after, map } from "../lib/fn";
+import { createArrayFromRange } from "../../lib/fn";
 
 export const suits = Object.freeze(['club', 'diamond', 'heart', 'spade']);
 
-// Create an array of card ranks.
-// When is JavaScript going to support array comprehensions? :)
 const A = 'A';
 const J = 'J';
 const Q = 'Q';
@@ -21,14 +18,10 @@ export const isBlackJack = (cards) => {
   return _cards.some(card => isAce(card)) && _cards.some(card => isFace(card));
 }
 
-// Create a new card data structure from a suit name and a rank.
-// The value of cards over rank===13 is 10.
 export const card = (suit, rank, rankIndex) => ({ suit, rank, value: rank === A ? 11 : Math.min(10, rankIndex + 1) });
 
 const cardOfSuit = suit => (rank, rankIndex) => card(suit, rank, rankIndex);
 
-// Create a deck from an array of suit names and an array of ranks.
-// A deck is the cross-product of suits x ranks.
 export const deck =
   (suits, ranks) => {
     const initialValue = [];
@@ -41,9 +34,9 @@ export const deck =
     )
   };
 
-
 export const shuffle = array => {
   const newArray = [...array];
+
   for (let i = newArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
@@ -61,15 +54,4 @@ const getCardIndexInDeck = (deck, index) => index % deck.length;
 
 export const drawFromDeck = (deck, indices, nextPick) => (Object.assign({}, deck[getCardIndexInDeck(deck, indices[nextPick])]));
 
-export const drawNFromDeck = (n, deck, indices, nextPick) => {
-  return createArrayFromRange(n).map((i) => drawFromDeck(deck, indices, nextPick + i));
-};
-
-// Given a deck, return a tuple of the first N cards and the rest of the deck.
-export const hitN =
-  (deck, indices, nextPick, n = 1) => {
-    const pickedCards = createArrayFromRange(n).map(() => drawFromDeck(deck, indices, nextPick))
-    const incrementedNextPick = nextPick + n;
-
-    return { cards: pickedCards, deck, indices, nextPick: incrementedNextPick }
-  }
+export const isEndOfDeck = (indices, nextPick) => indices.length  <= nextPick + 1;
