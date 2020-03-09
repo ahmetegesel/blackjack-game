@@ -3,7 +3,6 @@ import {
   generateIndices,
   isAce,
   isBlackJack,
-  isEndOfDeck,
   ranks,
   shuffle,
   suits

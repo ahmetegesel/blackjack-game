@@ -53,5 +53,3 @@ export const generateIndices = (deck, deckCount) => {
 const getCardIndexInDeck = (deck, index) => index % deck.length;
 
 export const drawFromDeck = (deck, indices, nextPick) => (Object.assign({}, deck[getCardIndexInDeck(deck, indices[nextPick])]));
-
-export const isEndOfDeck = (indices, nextPick) => indices.length  <= nextPick + 1;
