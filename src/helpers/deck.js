@@ -7,7 +7,9 @@ import { card } from "./card";
 const cardOfSuit = suit => (rank, rankIndex) => card(suit, rank, rankIndex);
 
 /**
-* @returns {Array<{suit:string, rank:string, value:number}>} A function composition to create the whole deck with the given suits array and ranks array. 
+* A function composition to create the whole deck with the given suits array and ranks array. 
+*
+* @returns {Array<{suit:string, rank:string, value:number}>} 
 */
 export const deck =
   (suits, ranks) => {
