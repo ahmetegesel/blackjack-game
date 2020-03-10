@@ -24,14 +24,17 @@ for the rest.
 I could also store all the StoreNodes in one master object to make it possible for StoreNodes to interact each 
 other but I did it like this for now.
 
+All the structure is documented in their files. Feel free to check them.
+
 ## Why State Management?
 
 I would basically create bunch of classes according to the needs of the application, and store 
-all related date in their properties. Instead, I used State Management approach to keep
+all related data in their properties. Instead, I used State Management approach to keep
 particular main objects, such as Player and Game, consistent, SOLID, and Testable. Also, State
-Management approach supports the Separation of Concern with the power of Action and Getter functions.
-Last but not least, since the state is local to the owning `StoreNode` instance, you can easily implement
-immutability on them to keep the code even more reliable and maintainable. 
+Management approach supports the Separation of Concern with the power of `Action` and `getter` functions.
+Last but not least, since the `state` is local to the owning `StoreNode` instance, you can easily implement
+better immutability on them to keep the code even more reliable and maintainable. For now I used simply 
+Object.assign or destructuring.
 
 Besides all of these general benefits of the StateManagement approach, I used it for another reason: 
 make the game extensible. Since rules of the game can vary from casino to casino, and even some other
@@ -40,8 +43,11 @@ of the game.
 
 For instance, to implement Split functionality, you need two different hands for 
 the current player. But while split is active, you should, somehow, handle two different hands in the 
-same state and also change the functionality of Hit action. This violates Open/Closed principle. With the 
-`Action` class approach, you can override current actions in a way that, until you change it back to normal,
+same state and also change the functionality of Hit action. Or let's say instead of State Management
+you had complete OOP aproach and you had a Player class to handle hit functionality. To add Split,
+you would have to add another function Split and store a flag the Split state and reuse Hit method
+of the player to continue hitting. But this violates Open/Closed principle. With the `Action` class 
+approach, you can override current actions in a way that, until you change it back to normal,
 all hit actions would dispatch your Split action with a parameter of actual action (like 'hit' or 'stand') 
 and then you can handle all these action in an isolated class. Once you are done with the split, then you can
 restore the old (defult) actions to continue normal playing.
