@@ -1,16 +1,28 @@
 # StateManagement based BlackJack 21 Game
 
 ## How to Run
-Simple run `npm i` then `npm start`.
+Simply run `npm i` then `npm start`.
 
 ## How to Play
-When the game starts, it will show you Dealr's and Player's (Your) hand, 
+When the game starts, it will show you Dealer's and Player's (Your) hand, 
 then you will decide either Hit or Stand. To hit, press 'h' , to stand press 's',
 then press 'Enter'. 
 
 Instead of a complete OOP or a complete FP approaches, I used an hybrid version of them.
 Players and Game are constructed as Objects and they are basically instances of `StoreNode`
 class.
+
+## Structure
+It all starts in index.js file but the iron horses of the game are `StoreNode` objects. These
+objects are basically use Actions and Getters to manage their functionality and use their state
+object to store some needed data related to their functionality.
+
+To make it pure and non-side-effect, I tried to use small functions for everything. They are called, helpers.
+So basically, you create your master pieces of the game as StoreNodes and use Functional Programming aproach
+for the rest.
+
+I could also store all the StoreNodes in one master object to make it possible for StoreNodes to interact each 
+other but I did it like this for now.
 
 ## Why State Management?
 
@@ -23,7 +35,7 @@ immutability on them to keep the code even more reliable and maintainable.
 
 Besides all of these general benefits of the StateManagement approach, I used it for another reason: 
 make the game extensible. Since rules of the game can vary from casino to casino, and even some other
-functionality can come into the game too, you can easily use Action classes to override functionality
+functionality can come into the game too, you can easily use `Action` classes to override functionality
 of the game. 
 
 For instance, to implement Split functionality, you need two different hands for 
